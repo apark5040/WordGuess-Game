@@ -44,6 +44,36 @@ var wordDisplay = game.correctAns.join(" ");
 
 $(game.firstDiv).text(wordDisplay);
 
+function removeMessage(){
+    if (parent.contains(child) === true) {
+        parent.removeChild(child);
+
+    }
+}
+
+function losePoints(userGuess){
+    if (game.correctAns.indexOf(userGuess) < 0) {
+        game.incorrectAns.push(userGuess);
+        game.chances--;
+
+    }
+}
+
+function winGame(){
+    if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess) {
+        game.wins++;
+        reset();
+    }
+}
+
+function loseGame(){
+    if(game.chances == 0){
+        game.loses++;
+        alert("The answer was: " + hangmanGuess);
+        reset();
+    }
+}
+
 
 
 function reset() {
@@ -58,8 +88,8 @@ function reset() {
         game.correctAns.splice(i, 0, "_");
     }
 
-    wordDisplay = game.correctAns.join(" ");
-    $(game.firstDiv).text(wordDisplay);
+    // wordDisplay = game.correctAns.join(" ");
+    // $(game.firstDiv).text(wordDisplay);
 
     
 }
@@ -74,15 +104,7 @@ document.onkeyup = function (event) {
     console.log(hangmanGuess);
 
 
-
-    if (parent.contains(child) === true) {
-        parent.removeChild(child);
-
-    }
-
-
-
-
+    removeMessage();
 
     for (i = 0; i < hangmanGuess.length; i++) {
         if (userGuess == hangmanGuess[i]) {
@@ -101,23 +123,11 @@ document.onkeyup = function (event) {
 
     }
 
-    if (game.correctAns.indexOf(userGuess) < 0) {
-        game.incorrectAns.push(userGuess);
-        game.chances--;
+    losePoints(userGuess);
+    winGame();
+    loseGame();
 
-    }
-
-    if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess) {
-        game.wins++;
-        reset();
-        
-
-    }
-
-    if(game.chances == 0){
-        game.loses++;
-        reset();
-    }
+    
 
     $(game.firstDiv).text(game.combineAnswer);
     $(game.secondDiv).text(game.incorrectAns);
