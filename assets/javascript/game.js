@@ -44,20 +44,22 @@ var wordDisplay = game.correctAns.join(" ");
 
 $(game.firstDiv).text(wordDisplay);
 
+/////////////////////FUNCTIONS//////////////////////////////////////////
+
 function removeMessage(){
     if (parent.contains(child) === true) {
         parent.removeChild(child);
-
     }
 }
+
 
 function losePoints(userGuess){
     if (game.correctAns.indexOf(userGuess) < 0) {
         game.incorrectAns.push(userGuess);
         game.chances--;
-
     }
 }
+
 
 function winGame(){
     if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess) {
@@ -66,6 +68,7 @@ function winGame(){
     }
 }
 
+
 function loseGame(){
     if(game.chances == 0){
         game.loses++;
@@ -73,7 +76,6 @@ function loseGame(){
         reset();
     }
 }
-
 
 
 function reset() {
@@ -88,24 +90,24 @@ function reset() {
         game.correctAns.splice(i, 0, "_");
     }
 
-    // wordDisplay = game.correctAns.join(" ");
-    // $(game.firstDiv).text(wordDisplay);
-
     
 }
 
 
+/////////////////////////////////////////////////////////////////////////
 
 
 document.onkeyup = function (event) {
 
     var userGuess = event.key.toLowerCase();
 
+    //This is here so I don't have to keep guessing
     console.log(hangmanGuess);
 
 
     removeMessage();
 
+    //Goes through each letter of the guessed word and compares it to the uder input
     for (i = 0; i < hangmanGuess.length; i++) {
         if (userGuess == hangmanGuess[i]) {
             game.correctAns[i] = userGuess;
@@ -114,13 +116,9 @@ document.onkeyup = function (event) {
                 game.combineAnswer = game.correctAns.join(" ");
             }
         }
-
         else {
-
             game.combineAnswer = game.correctAns.join(" ");
-
         }
-
     }
 
     losePoints(userGuess);
