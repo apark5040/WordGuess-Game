@@ -89,8 +89,6 @@ function reset() {
     for (i = 0; i < hangmanGuess.length; i++) {
         game.correctAns.splice(i, 0, "_");
     }
-
-    
 }
 
 
@@ -124,8 +122,6 @@ document.onkeyup = function (event) {
     losePoints(userGuess);
     winGame();
     loseGame();
-
-    
 
     $(game.firstDiv).text(game.combineAnswer);
     $(game.secondDiv).text(game.incorrectAns);
