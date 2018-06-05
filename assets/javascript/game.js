@@ -64,6 +64,7 @@ function losePoints(userGuess){
 function winGame(){
     if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess) {
         game.wins++;
+        alert("The correct answer is: " + hangmanGuess);
         reset();
     }
 }
@@ -90,6 +91,7 @@ function reset() {
         game.correctAns.splice(i, 0, "_");
     }
 }
+    
 
 
 /////////////////////////////////////////////////////////////////////////
