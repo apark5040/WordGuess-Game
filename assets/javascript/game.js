@@ -76,7 +76,6 @@ function winGame(){
         game.wins++;
         game.chances = 10;
         alert("The correct answer is: " + hangmanGuess);
-        // reset();
     }
 }
 
@@ -86,7 +85,6 @@ function loseGame(){
         game.loses++;
         game.chances = 10;
         alert("The answer was: " + hangmanGuess);
-        // reset();
     }
 }
 

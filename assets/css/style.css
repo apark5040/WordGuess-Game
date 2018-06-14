@@ -23,3 +23,7 @@ img {
 .jumbotron {
     border: solid 5px;
 }
+
+body {
+    background-color: grey;
+}
