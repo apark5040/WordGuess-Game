@@ -20,6 +20,8 @@ var game = {
     
 }
 
+var wordDisplay;
+
 //this is used to remove the "please press to start" message later
 var parent = document.getElementById("game");
 var child = document.getElementById("startMessage");
@@ -40,7 +42,7 @@ for (i = 0; i < hangmanGuess.length; i++) {
 }
 
 //used to have the underscores on the page as soon as the page loads
-var wordDisplay = game.correctAns.join(" ");
+wordDisplay = game.correctAns.join(" ");
 
 $(game.firstDiv).text(wordDisplay);
 
@@ -54,11 +56,16 @@ function removeMessage(){
 
 
 function losePoints(userGuess){
-    if (game.correctAns.indexOf(userGuess) < 0) {
+    if(game.incorrectAns.includes(userGuess)){
+        alert("You have already guessed this letter. Please try again.");
+    }
+
+    else if (game.correctAns.indexOf(userGuess) < 0) {
         game.incorrectAns.push(userGuess);
         game.chances--;
     }
 }
+
 
 
 function winGame(){
@@ -90,6 +97,12 @@ function reset() {
     for (i = 0; i < hangmanGuess.length; i++) {
         game.correctAns.splice(i, 0, "_");
     }
+
+
+    wordDisplay = game.correctAns.join(" ");
+    $(game.firstDiv).text(wordDisplay);
+
+    $(game.secondDiv).text(game.incorrectAns);
 }
     
 
@@ -107,7 +120,7 @@ document.onkeyup = function (event) {
 
     removeMessage();
 
-    //Goes through each letter of the guessed word and compares it to the uder input
+    //Goes through each letter of the guessed word and compares it to the user input
     for (i = 0; i < hangmanGuess.length; i++) {
         if (userGuess == hangmanGuess[i]) {
             game.correctAns[i] = userGuess;
@@ -122,9 +135,8 @@ document.onkeyup = function (event) {
     }
 
     losePoints(userGuess);
-    winGame();
-    loseGame();
-
+    
+    
     $(game.firstDiv).text(game.combineAnswer);
     $(game.secondDiv).text(game.incorrectAns);
     $(game.thirdDiv).text("You have " + game.chances + " left");
@@ -132,4 +144,10 @@ document.onkeyup = function (event) {
     $(game.fifthDiv).text("Loses: " + game.loses);
 
     
+    winGame();
+    loseGame();
+    
 }
+
+    
+    
