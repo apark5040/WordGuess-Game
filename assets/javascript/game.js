@@ -46,6 +46,9 @@ wordDisplay = game.correctAns.join(" ");
 
 $(game.firstDiv).text(wordDisplay);
 
+
+
+
 /////////////////////FUNCTIONS//////////////////////////////////////////
 
 function removeMessage(){
@@ -71,26 +74,29 @@ function losePoints(userGuess){
 function winGame(){
     if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess) {
         game.wins++;
+        game.chances = 10;
         alert("The correct answer is: " + hangmanGuess);
-        reset();
+        // reset();
     }
 }
 
 
 function loseGame(){
-    if(game.chances == 0){
+    if(game.chances ===0){
         game.loses++;
+        game.chances = 10;
         alert("The answer was: " + hangmanGuess);
-        reset();
+        // reset();
     }
 }
 
 
 function reset() {
+    if (game.combineAnswer.replace(/\s/g, '') == hangmanGuess || game.chances ===0){
     game.correctAns= [];
     game.incorrectAns= [];
     game.combineAnswer = '';
-    game.chances = 10;
+    
 
     hangmanGuess = stuffList[Math.floor(Math.random() * stuffList.length)];
 
@@ -103,6 +109,7 @@ function reset() {
     $(game.firstDiv).text(wordDisplay);
 
     $(game.secondDiv).text(game.incorrectAns);
+}
 }
     
 
@@ -135,6 +142,8 @@ document.onkeyup = function (event) {
     }
 
     losePoints(userGuess);
+    winGame();
+    loseGame();
     
     
     $(game.firstDiv).text(game.combineAnswer);
@@ -144,8 +153,7 @@ document.onkeyup = function (event) {
     $(game.fifthDiv).text("Loses: " + game.loses);
 
     
-    winGame();
-    loseGame();
+    reset();
     
 }
 
